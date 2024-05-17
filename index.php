@@ -74,16 +74,13 @@ if(!$conn) {
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['uidEdit'])){
             $uid = $_POST['uidEdit'];
-            $title = $_POST['titleEdit'];
-            echo $title;
+            $title = $_POST['titleEdit'];   
             $description = $_POST['descEdit'];
 
-            $sql = "UPDATE `note_table` SET `title` = '$title' AND `description` = '$description' WHERE `note_table`.`uid` = '$uid'";
+            $sql = "UPDATE `note_table` SET `title` = '$title', `description` = '$description' WHERE `note_table`.`uid` = '$uid'";
             $result = mysqli_query($conn, $sql);
 
-            if($result) {
-                echo "Updated succesfully";
-            } else {
+            if(!$result) {
                 echo "Failed --> " .mysqli_error($conn);
             }
         } else {
