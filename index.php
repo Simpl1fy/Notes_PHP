@@ -8,9 +8,7 @@ $database = "notes";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 
-if($conn) {
-    echo "Connection was succesful";
-} else {
+if(!$conn) {
     echo "Connection was not succesful -->" . mysqli_connect_error();
 }
 ?>
@@ -61,15 +59,31 @@ if($conn) {
     </div>
 
     <div class="container">
-        <?php
-        $sql = "SELECT * FROM `note_table`";
-        $result = mysqli_query($conn, $sql);
-
-        while($row = mysqli_fetch_assoc($result)) {
-            echo "Title". $row["tile"] ." Description ". $row["description"];
-            echo "Fetch was succesful";
-        }
-        ?>
+        <h4 class="my-3">Notes</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Unique Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                        <?php
+                        $sql = "SELECT * FROM `note_table`";
+                        $result = mysqli_query($conn, $sql);
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo "<th scope='row'>" . $row["uid"] ."</th>
+                            <td>" .$row["title"] ."</td>
+                            <td>" .$row["description"] ."</td>
+                            <td> Action </td>";
+                        }
+                        ?>
+                    </tr>
+                </tbody>
+        </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
