@@ -143,7 +143,7 @@ if(!$conn) {
                                 <th scope='row'>" . $sno ."</th>
                                 <td>" .$row["title"] ."</td>
                                 <td>" .$row["description"] ."</td>
-                                <td> <button type='button' class='edit btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editModal' id=". $row["uid"] .">Edit</button>  <button type='button' class='btn btn-sm btn-danger'>Delete</button> </td>
+                                <td> <button type='button' class='edit btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editModal' id=". $row["uid"] .">Edit</button>  <button type='button' class='delete btn btn-sm btn-danger' id=d". $row["uid"] .">Delete</button> </td>
                             </tr>";     
                         }
                         ?>

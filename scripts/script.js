@@ -12,3 +12,19 @@ Array.from(edits).forEach((element) => {
         console.log(e.target.id);
     });
 });
+
+
+deletes = document.getElementsByClassName('delete');
+Array.from(deletes).forEach((element) => {
+    element.addEventListener("click", (e) => {
+        console.log("Delete is pressed");
+        uid = e.target.id.substr(1,);
+        console.log(uid);
+        if(confirm("Are you sure")) {
+            console.log('Yes');
+            window.location = `/Note-Taker/index.php?delete=${uid}`;
+        } else {
+            console.log('No');
+        }
+    });
+});
