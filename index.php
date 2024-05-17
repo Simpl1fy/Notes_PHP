@@ -114,7 +114,7 @@ if(!$conn) {
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Note Description</label>
-                <input type="text" class="form-control" id="note-desc" name="desc">
+                <textarea  class="form-control" id="note-desc" name="desc" rows="5"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
