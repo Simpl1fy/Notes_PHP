@@ -26,11 +26,6 @@ if(!$conn) {
 </head>
 <body>
 
-    <!-- Edit modal -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch edit modal
-    </button> -->
-
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -41,15 +36,16 @@ if(!$conn) {
             </div>
             <div class="modal-body">
             <form action="/Note-Taker/index.php" method="post">
+                <input type="hidden" name="uidEdit"  id="uidEdit">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Note Heading</label>
+                    <label for="noteHeadingEdit" class="form-label">Note Heading</label>
                     <input type="text" class="form-control" id="titleEdit" name="titleEdit">
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Note Description</label>
+                    <label for="notedescriptionEdit" class="form-label">Note Description</label>
                     <input type="text" class="form-control" id="descEdit" name="descEdit">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
             </form>
             </div>
             </div>
@@ -76,21 +72,37 @@ if(!$conn) {
     <!-- Adding the main form -->
     <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $title = $_POST['title'];
-        $desc = $_POST['desc'];
-        $sql = "INSERT INTO `note_table` (`title`, `description`) VALUES ('$title', '$desc')";
-        $result = mysqli_query($conn, $sql);
+        if(isset($_POST['uidEdit'])){
+            $uid = $_POST['uidEdit'];
+            $title = $_POST['titleEdit'];
+            echo $title;
+            $description = $_POST['descEdit'];
 
-        if($result) {
-            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <strong>Success!</strong> Your note has been saved.
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-          </div>";
+            $sql = "UPDATE `note_table` SET `title` = '$title' AND `description` = '$description' WHERE `note_table`.`uid` = '$uid'";
+            $result = mysqli_query($conn, $sql);
+
+            if($result) {
+                echo "Updated succesfully";
+            } else {
+                echo "Failed --> " .mysqli_error($conn);
+            }
         } else {
-            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-            <strong>Failed!</strong> Your note was not saved. error " . mysqli_error($conn) ."
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-          </div>";
+            $title = $_POST['title'];
+            $desc = $_POST['desc'];
+            $sql = "INSERT INTO `note_table` (`title`, `description`) VALUES ('$title', '$desc')";
+            $result = mysqli_query($conn, $sql);
+
+            if($result) {
+                echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success!</strong> Your note has been saved.
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            } else {
+                echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                <strong>Failed!</strong> Your note was not saved. error " . mysqli_error($conn) ."
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            }
         }
     }
     ?>
@@ -134,7 +146,7 @@ if(!$conn) {
                                 <th scope='row'>" . $sno ."</th>
                                 <td>" .$row["title"] ."</td>
                                 <td>" .$row["description"] ."</td>
-                                <td> <button type='button' class='edit btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button>  <button type='button' class='btn btn-sm btn-danger'>Delete</button> </td>
+                                <td> <button type='button' class='edit btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#editModal' id=". $row["uid"] .">Edit</button>  <button type='button' class='btn btn-sm btn-danger'>Delete</button> </td>
                             </tr>";     
                         }
                         ?>
