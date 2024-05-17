@@ -48,7 +48,10 @@ $update = false;
                     <label for="notedescriptionEdit" class="form-label">Note Description</label>
                     <input type="text" class="form-control" id="descEdit" name="descEdit">
                 </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <div class="modal-footer d-block mr-auto">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </form>
             </div>
             </div>
