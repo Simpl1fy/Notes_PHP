@@ -25,6 +25,31 @@ if(!$conn) {
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
 </head>
 <body>
+
+    <!-- Edit modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch edit modal
+    </button> -->
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">Edit Note</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            ...
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Note Taker</a>
@@ -85,7 +110,7 @@ if(!$conn) {
         <table class="table" id="myTable">
             <thead>
                 <tr>
-                <th scope="col">Unique Id</th>
+                <th scope="col">U. Id</th>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
@@ -104,7 +129,7 @@ if(!$conn) {
                                 <td>" .$row["title"] ."</td>
                                 <td>" .$row["description"] ."</td>
                                 <td> Action </td>
-                            </tr>";
+                            </tr>";     
                         }
                         ?>
                 </tbody>
