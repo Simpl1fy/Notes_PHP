@@ -11,6 +11,9 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if(!$conn) {
     echo "Connection was not succesful -->" . mysqli_connect_error();
 }
+
+$insert = false;
+$update = false;
 ?>
 
 
@@ -71,6 +74,19 @@ if(!$conn) {
 
     <!-- Adding the main form -->
     <?php
+    if(isset($_GET['delete'])) {
+        $sno = $_GET['delete'];
+        $sql = "DELETE FROM `note_table` WHERE `note_table`.`uid` = '$sno'";
+        $result = mysqli_query($conn, $sql);
+        if($result) {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success!</strong> Your note has been deleted.
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                </div>";
+        }
+    }
+
+
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['uidEdit'])){
             $uid = $_POST['uidEdit'];
@@ -80,8 +96,11 @@ if(!$conn) {
             $sql = "UPDATE `note_table` SET `title` = '$title', `description` = '$description' WHERE `note_table`.`uid` = '$uid'";
             $result = mysqli_query($conn, $sql);
 
-            if(!$result) {
-                echo "Failed --> " .mysqli_error($conn);
+            if($result) {
+                echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success!</strong> Your note has been updated.
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                </div>";
             }
         } else {
             $title = $_POST['title'];
@@ -93,12 +112,7 @@ if(!$conn) {
                 echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                 <strong>Success!</strong> Your note has been saved.
                 <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-            </div>";
-            } else {
-                echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                <strong>Failed!</strong> Your note was not saved. error " . mysqli_error($conn) ."
-                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-            </div>";
+                </div>";
             }
         }
     }

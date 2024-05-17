@@ -20,7 +20,7 @@ Array.from(deletes).forEach((element) => {
         console.log("Delete is pressed");
         uid = e.target.id.substr(1,);
         console.log(uid);
-        if(confirm("Are you sure")) {
+        if(confirm("Are you sure you want to delete this note?")) {
             console.log('Yes');
             window.location = `/Note-Taker/index.php?delete=${uid}`;
         } else {
